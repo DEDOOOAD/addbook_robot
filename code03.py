@@ -1,6 +1,7 @@
 #code03.py
 #주소록 입력, 사진등록, 리스트에 보이기, 저장, 불러오기 
 #수정, 삭제 
+import os
 import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow, QFileDialog, QListWidgetItem, QMenu, QInputDialog
 from PyQt5.QtGui import QPixmap, QIcon
@@ -10,11 +11,17 @@ from PyQt5.QtWidgets import QDialog, QLineEdit, QPushButton, QVBoxLayout, QLabel
 from myAddDB import * #이것은 내가 만든 myAddDB에서 모든 객체 및 함수를 사용하겠다.
 from PyQt5.QtWidgets import QMessageBox
 
+def resource_path(relative_path):
+        base_path = getattr(sys, '_MEIPASS', os.path.abspath("."))
+        return os.path.join(base_path, relative_path)
 class EditContactDialog(QDialog):
+    
     def __init__(self, parent=None, name='', phone='', image_path=''):
         super().__init__(parent)
-        # UI 파일 로드
-        loadUi('./res/edit.ui', self)
+        # UI 파일 로드        
+        # self 없이 resource_path 함수 호출
+        loadUi(resource_path("res/myWin01.ui"), self)
+        
 
         # 메인 윈도우 설정
         self.setWindowTitle('주소록수정')
@@ -41,11 +48,13 @@ class EditContactDialog(QDialog):
 
 
 class MyMainWindow(QMainWindow):
+    
     def __init__(self):
         super(MyMainWindow, self).__init__()
 
         # UI 파일 로드
-        loadUi('./res/myWin01.ui', self)
+        loadUi(resource_path("res/myWin01.ui"), self)
+
 
         # 메인 윈도우 설정
         self.setWindowTitle('DB로 만드는 주소록 ver 0.2')

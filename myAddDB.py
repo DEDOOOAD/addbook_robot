@@ -9,16 +9,18 @@ class mysqlDB():
 
         #이것이 무엇인가 하면 데이터베이스를 다루는 객체임.
         self.connection = pymysql.connect(
-            host='localhost',
-            user='sa',      #데이터베이스의 사용자 이름
-            passwd='1234',
-            db='sa',
-            charset='utf8',
-            port=3308,          #일반적으로 사용하는 포트임
+            host='bitnmeta2.synology.me',
+            user='iyrc',
+            passwd='Dodan1004!',                
+            db='juso',  # 데이터베이스 이름까지만 들어 가고 테이블은 아래 insert함수 참고
+            charset='utf8', 
+            port=3307,          #일반적으로 사용하는 포트임
             cursorclass=pymysql.cursors.DictCursor
         )
     def insert(self, new_name, new_phone, new_filename):
         with self.connection.cursor() as cursor:
+            # addbook이라는 테이브레 name, phone, filename을 추가 하라 
+            # 이 힌트를 이용하면 테이블이 없을때 테이블을 새로 만들수도 있다. 
             sql = "INSERT INTO addbook (name, phone, filename) VALUES (%s, %s, %s)"
             result = cursor.execute(sql, (new_name, new_phone, new_filename))            
             self.connection.commit()    # 메모리 내용을 DB로 전송
@@ -59,12 +61,12 @@ if __name__ == '__main__':
     app = QApplication(sys.argv)
     db = mysqlDB()
     # 데이터 추가 하기 테스트 
-    result = db.insert("황동하0326-11","110-2512-6818","")
+    result = db.insert("황동하","010-2512-6818","")
     print (result)
     input("앤터를 누르세요")
     
     # 업데이트 
-    result = db.update("황동하0326-11","110-0326-2024","")
+    result = db.update("황동하","110-0326-2024","이름없음")
     print (result)
     input("앤터를 누르세요")
 
