@@ -10,6 +10,7 @@ from PyQt5.QtWidgets import QDialog, QLineEdit, QPushButton, QVBoxLayout, QLabel
 from myAddDB import * #이것은 내가 만든 myAddDB에서 모든 객체 및 함수를 사용하겠다.
 from PyQt5.QtWidgets import QMessageBox
 
+
 class EditContactDialog(QDialog):
     def __init__(self, parent=None, name='', phone='', image_path=''):
         super().__init__(parent)
